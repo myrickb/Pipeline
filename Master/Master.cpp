@@ -1,13 +1,13 @@
-#include "Processor.hpp"
+#include "Master.hpp"
 #include <iostream>
 
-bool Processor:Initialize() {
+bool Master:Initialize() {
     bool return_success = true;
 
     return return_success;
 }
 
-bool Processor:Run(){
+bool Master:Run(){
     bool return_success = true;
 
     return return_success;
