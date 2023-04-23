@@ -1,11 +1,11 @@
-#ifndef PRODUCER_HPP
-#define PRODUCER_HPP
+#ifndef PRODUCERMAIN_HPP
+#define PRODUCERMAIN_HPP
 
 
-class Producer{
+class ProducerMain{
     public:
         bool Initialize();
         bool Run();
 };
 
-#endif // PRODUCER_HPP
+#endif // PRODUCERMAIN_HPP

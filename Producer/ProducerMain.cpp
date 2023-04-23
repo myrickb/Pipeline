@@ -1,13 +1,13 @@
-#include "Producer.hpp"
+#include "ProducerMain.hpp"
 #include <iostream>
 
-bool Producer:Initialize() {
+bool ProducerMain::Initialize() {
     bool return_success = true;
 
     return return_success;
 }
 
-bool Producer:Run(){
+bool ProducerMain::Run(){
     bool return_success = true;
 
     return return_success;

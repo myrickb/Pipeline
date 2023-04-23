@@ -1,2 +1,2 @@
 set(SOURCES Master.cpp)
-add_library(Master ${SOURCES})
+add_library(Master STATIC ${SOURCES})

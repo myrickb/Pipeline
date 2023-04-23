@@ -1,13 +1,13 @@
-#include "Consumer.hpp"
+#include "ConsumerMain.hpp"
 #include <iostream>
 
-bool Consumer:Initialize() {
+bool ConsumerMain::Initialize() {
     bool return_success = true;
 
     return return_success;
 }
 
-bool Consumer:Run(){
+bool ConsumerMain::Run(){
     bool return_success = true;
 
     return return_success;

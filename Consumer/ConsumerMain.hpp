@@ -1,11 +1,11 @@
-#ifndef CONSUMER_HPP
-#define CONSUMER_HPP
+#ifndef CONSUMERMAIN_HPP
+#define CONSUMERMAIN_HPP
 
 
-class Consumer{
+class ConsumerMain{
     public:
         bool Initialize();
         bool Run();
 };
 
-#endif // CONSUMER_HPP
+#endif // CONSUMERMAIN_HPP

@@ -1,3 +1,3 @@
-set(SOURCES Producer.cpp)
+set(SOURCES ProducerMain.cpp)
 
 add_library(Producer ${SOURCES})

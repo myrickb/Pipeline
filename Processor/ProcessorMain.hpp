@@ -1,11 +1,11 @@
-#ifndef PROCESSOR_HPP
-#define PROCESSOR_HPP
+#ifndef PROCESSORMAIN_HPP
+#define PROCESSORMAIN_HPP
 
 
-class Processor{
+class ProcessorMain{
     public:
         bool Initialize();
         bool Run();
 };
 
-#endif // PROCESSOR_HPP
+#endif // PROCESSORMAIN_HPP
