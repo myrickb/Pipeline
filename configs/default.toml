@@ -1,5 +1,5 @@
 [General]
-    processList = ["Producer", "Processor", "Consumer"]
+    process_list = ["Producer", "Processor", "Consumer"]
 
 [Producer]
     input_ip = "192.168.1.1"
