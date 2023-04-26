@@ -15,3 +15,4 @@ add_subdirectory(Producer)
 add_executable(MainProcess main.cpp)
 target_include_directories(MainProcess PRIVATE ${CMAKE_SOURCE_DIR}/Master)
 target_link_libraries(MainProcess Master Common)
+

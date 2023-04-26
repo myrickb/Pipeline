@@ -1,3 +1,7 @@
 set(SOURCES Master.cpp)
 add_library(Master STATIC ${SOURCES})
+target_include_directories(Master PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(Master PRIVATE Common)
+target_link_libraries(Master PRIVATE Consumer)
+target_link_libraries(Master PRIVATE Processor)
+target_link_libraries(Master PRIVATE Producer)

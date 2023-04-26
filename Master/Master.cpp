@@ -34,6 +34,37 @@ bool Master::Run(){
     std::cout << "We have reached master!" << std::endl;
 
 
+    std::vector<std::thread> threads;
+
+    std::vector<std::function<void()>> functions;
+
+    for (const auto &process_name : mProcessList) {
+        if (process_name == Master::PRODUCER_PROCESS_NAME) {
+            ProducerMain *producer = new ProducerMain();
+            functions.emplace_back(std::bind(&ProducerMain::Run, producer));
+        } else if (process_name == Master::CONSUMER_PROCESS_NAME) {
+            ConsumerMain *consumer = new ConsumerMain();
+            functions.emplace_back(std::bind(&ConsumerMain::Run, consumer));
+        } else if (process_name == Master::PROCESSOR_PROCESS_NAME) {
+            ProcessorMain *processor = new ProcessorMain();
+            functions.emplace_back(std::bind(&ProcessorMain::Run, processor));
+        } else {
+            std::cerr << "Unknown process: " << process_name << std::endl;
+        }
+    }
+
+    for (auto &function : functions) {
+        threads.emplace_back(function);
+    }
+
+    // Wait for all threads to finish
+    for (auto &t : threads) {
+        if (t.joinable()) {
+            t.join();
+        }
+    }
+
+
 
 
     return return_success;
