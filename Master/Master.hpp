@@ -6,16 +6,19 @@
 #include<iostream>
 #include<fstream>
 #include<thread>
-#include<atomic>
-#include<csignal>
 #include<functional>
 #include<toml++/toml.h>
+#include<unistd.h>
+#include <sys/wait.h>
+#include <map>
+#include <csignal>
+#include <atomic>
 #include "TomlUtil.hpp"
-#include "ConsumerMain.hpp"
-#include "ProcessorMain.hpp"
-#include "ProducerMain.hpp"
+#include "ProcessHandler.hpp"
+
 class Master{
     public:
+        Master();
         bool Initialize(const std::string& tomlConfigPath);
         bool Run();
 
@@ -27,6 +30,8 @@ class Master{
 
         std::vector<std::string> mProcessList;
         toml::v3::table mTomlTable;
+
+        ProcessHandler* mProcessHandler;
 };
 
 #endif // MASTER_HPP

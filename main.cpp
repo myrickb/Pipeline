@@ -2,7 +2,7 @@
 #include "iostream"
 
 int main(int argc, char *argv[]) {
-    
+    std::cout << "Indeisde main" << std::endl;
     if(argc != 2){
         std::cerr << "Incorrect number of arguments!" << std::endl;
         std::cerr << "Expected -> ./MainProcess nameOfToml.toml" << std::endl;

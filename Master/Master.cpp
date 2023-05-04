@@ -1,9 +1,12 @@
 #include "Master.hpp"
 #include <iostream>
 
+Master::Master(){}
+
 bool Master::Initialize(const std::string& tomlConfigPath) {
     bool return_success = true;
 
+    std::cout << "One" << std::endl;
     // Confirm toml file exists
     std::ifstream file(tomlConfigPath);
     if(file.good() == false){
@@ -12,11 +15,12 @@ bool Master::Initialize(const std::string& tomlConfigPath) {
     }// if
     else{
         // Parse toml file
+        std::cout << "Type two here" << std::endl;
         if(TomlUtil::GetTomlTable(mTomlTable,tomlConfigPath) == false){
             std::cerr << "ERROR::Master::Initialize: Could not grab toml table from toml file!" << std::endl;
             return_success = false;
         }// if
-
+        std::cout << "Type three here" << std::endl;
         // Get ProcessList
         if(TomlUtil::GetProcessList(mTomlTable, mProcessList) == false){
             std::cerr << "ERROR::Master::Initialize: Could not get process list from toml file" << std::endl;
@@ -24,6 +28,12 @@ bool Master::Initialize(const std::string& tomlConfigPath) {
         }// if
         
     }// else
+
+    // Initialize ProcessHandler
+    // if(mProcessHandler->Initialize() == false){
+    //     std::cerr << "ERROR:Master::Initialize: Could not initialize process handler!" << std::endl;
+    //     return_success = false;
+    // }// if
 
     return return_success;
 }// Initialize
@@ -34,38 +44,9 @@ bool Master::Run(){
     std::cout << "We have reached master!" << std::endl;
 
 
-    std::vector<std::thread> threads;
+    //ProcessManager process_manager
 
-    std::vector<std::function<void()>> functions;
-
-    for (const auto &process_name : mProcessList) {
-        if (process_name == Master::PRODUCER_PROCESS_NAME) {
-            ProducerMain *producer = new ProducerMain();
-            functions.emplace_back(std::bind(&ProducerMain::Run, producer));
-        } else if (process_name == Master::CONSUMER_PROCESS_NAME) {
-            ConsumerMain *consumer = new ConsumerMain();
-            functions.emplace_back(std::bind(&ConsumerMain::Run, consumer));
-        } else if (process_name == Master::PROCESSOR_PROCESS_NAME) {
-            ProcessorMain *processor = new ProcessorMain();
-            functions.emplace_back(std::bind(&ProcessorMain::Run, processor));
-        } else {
-            std::cerr << "Unknown process: " << process_name << std::endl;
-        }
-    }
-
-    for (auto &function : functions) {
-        threads.emplace_back(function);
-    }
-
-    // Wait for all threads to finish
-    for (auto &t : threads) {
-        if (t.joinable()) {
-            t.join();
-        }
-    }
-
-
-
+    mProcessHandler->StartThreads(mProcessList);
 
     return return_success;
 }// Run

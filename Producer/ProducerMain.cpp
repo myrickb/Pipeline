@@ -10,5 +10,15 @@ bool ProducerMain::Initialize() {
 bool ProducerMain::Run(){
     bool return_success = true;
 
+    std::cout << "reached producer main" << std::endl;
+
     return return_success;
+}
+
+
+int main(int argc, char *argv[]) {
+    
+    std::cout << "Reached Producer main!" << std::endl;
+
+    return 0;
 }
