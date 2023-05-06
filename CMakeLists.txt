@@ -4,7 +4,10 @@ project(MainProcess VERSION 1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+find_package(Protobuf REQUIRED)
 
+
+add_subdirectory(Proto)
 add_subdirectory(3rdParty)
 add_subdirectory(Common)
 add_subdirectory(Master)

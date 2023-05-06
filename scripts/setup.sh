@@ -3,7 +3,7 @@
 # Function to install packages on Debian-based systems
 install_debian() {
     sudo apt-get update
-    sudo apt-get install -y libpugixml-dev libprotobuf-dev libopencv-dev libzmq3-dev cmake g++ git
+    sudo apt-get install -y libpugixml-dev libprotobuf-dev libprotoc-dev protobuf-compiler libopencv-dev libzmq3-dev cmake g++ git
 
     # Install libtoml11 from source
     git clone https://github.com/marzer/tomlplusplus.git
@@ -17,7 +17,7 @@ install_debian() {
 # Function to install packages on Red Hat-based systems
 install_redhat() {
     sudo yum install -y epel-release
-    sudo yum install -y pugixml-devel protobuf-devel opencv-devel cppzmq-devel cmake gcc-c++ git
+    sudo yum install -y pugixml-devel protobuf-devel protobuf-compiler opencv-devel cppzmq-devel cmake gcc-c++ git
 
     # Install libtoml11 from source
     git clone https://github.com/ToruNiina/toml11.git

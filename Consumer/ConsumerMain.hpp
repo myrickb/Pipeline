@@ -4,7 +4,7 @@
 #include<iostream>
 #include<vector>
 #include<zmq.h>
-
+#include "DataMessage.pb.h"
 class ConsumerMain{
     public:
         ConsumerMain();
@@ -14,6 +14,7 @@ class ConsumerMain{
         std::vector<std::string> mModuleList;
         std::string mOutputAddress;
         std::string mOutputPort;
+        DataMessage::ImageDataMessage mImageDataMessage;
 
 };
 
