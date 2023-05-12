@@ -17,7 +17,7 @@ bool ProducerMain::Initialize() {
 
     // Default output address and port...
     mInputAddress = "127.0.0.1";
-    mInputPort = "5555";
+    mInputPort = "5556";
     
     try{
         mZmqContext = zmq::context_t(1);

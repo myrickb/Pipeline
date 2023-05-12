@@ -49,7 +49,7 @@ bool ConsumerMain::Run(){
         }// else
     }// for 
 
-    // Send zmq message to processor 
+    // Send zmq message to output ip/port 
     if(SendMessage() == false){
         std::cerr << "ERROR::ConsumerMain::Run: Could not send output zmq message!" << std::endl;
         return_success = false;
