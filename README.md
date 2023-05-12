@@ -9,7 +9,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Adding Your Own Module](#adding-your-own-module)
-- [Contributing](#contributing)
+- [Credits](#credits)
 - [License](#license)
 
 ## About
@@ -27,7 +27,11 @@ The goal of this pipeline is to streamline the development process for running a
 
 ## Installation
 
-Prerequisites: CMake 3.25.1, gcc 12.2.0
+Prerequisites: 
+- CMake 3.25.1
+- gcc 12.2.0
+- make 4.3
+
 Once you have the prerequisites installed, there is a setup script that you will need to run to install the remaining dependencies. This installation script has been test on debian systems, but not on redhat.
 
 ```bash
@@ -38,9 +42,15 @@ $ ./setup.sh
 ```
 
 
-## <div id="usage"/>Usage
+## Usage
 This section will provide the user with information regarding basic usage of the pipeline. For this section, we will be using pre-exisiting example modules that don't really do anything meaningful.
 
 
 ## Adding Your Own Module
+
+## Credits
+- Ben Myrick (@myrickb)
+- Colin Myrick (@cmyrick99)
+
+## License
 
