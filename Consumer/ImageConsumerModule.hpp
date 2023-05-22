@@ -13,6 +13,8 @@ class ImageConsumerModule{
         bool Run(DataMessage::ImageDataMessage& imageDataMessage);
 
         static constexpr const char* MODULE_NAME ="ImageConsumer";
+    private:
+        std::string mImagePath{""};
         
 };
 

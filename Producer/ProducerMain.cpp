@@ -17,7 +17,9 @@ bool ProducerMain::Initialize() {
 
     // Default output address and port...
     mInputAddress = "127.0.0.1";
-    mInputPort = "5556";
+    mInputPort = "5555";
+
+    mModuleList.push_back("ImageProducer");
     
     try{
         mZmqContext = zmq::context_t(1);
@@ -55,10 +57,17 @@ bool ProducerMain::Run(){
                 // Iterate through module list
                 for(const std::string& moduleName : mModuleList){
                     if(moduleName == ImageProducerModule::MODULE_NAME){
-                        if(mImageProducerModule.Run(mImageDataMessage) == false){
-                            std::cerr << "ERROR::ProducerMain::Run: Could not run image consumer module run function!" << std::endl;
+                        if(mImageProducerModule.Initialize() == false){
+                            std::cerr << "ERROR::ProducerMain::Run: Could not initialize image consumer module run function!" << std::endl;
                             return_success = false;
                         }// if
+                        else
+                        {
+                            if(mImageProducerModule.Run(mImageDataMessage) == false){
+                                std::cerr << "ERROR::ProducerMain::Run: Could not run image consumer module run function!" << std::endl;
+                                return_success = false;
+                            }// if
+                        }// else    
                     }// if
                     else{
                         std::cerr << "ERROR::ProducerMain::Run: Module name not found for any modules! Maybe we need to add it?" << std::endl;

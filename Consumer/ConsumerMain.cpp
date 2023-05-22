@@ -20,6 +20,8 @@ bool ConsumerMain::Initialize() {
     mImageDataMessage.set_height(600);
     mImageDataMessage.set_data("Hello World!");
 
+    mModuleList.push_back("ImageConsumer");
+
     try{
         mZmqContext = zmq::context_t(1);
         mOutputSocket = zmq::socket_t(mZmqContext, zmq::socket_type::push);
@@ -38,10 +40,17 @@ bool ConsumerMain::Run(){
     // Iterate through module list
     for(const std::string& moduleName : mModuleList){
         if(moduleName == ImageConsumerModule::MODULE_NAME){
-            if(mImageConsumerModule.Run(mImageDataMessage) == false){
-                std::cerr << "ERROR::ConsumerMain::Run: Could not run image consumer module run function!" << std::endl;
+            if(mImageConsumerModule.Initialize() == false){
+                std::cerr << "ERROR::ConsumerMain::Run: Could not initialize image consumer module run function!" << std::endl;
                 return_success = false;
             }// if
+            else
+            {
+                if(mImageConsumerModule.Run(mImageDataMessage) == false){
+                    std::cerr << "ERROR::ConsumerMain::Run: Could not run image consumer module run function!" << std::endl;
+                    return_success = false;
+                }// if
+            }       
         }// if
         else{
             std::cerr << "ERROR::ConsumerMain::Run: Module name not found for any modules! Maybe we need to add it?" << std::endl;
@@ -49,11 +58,16 @@ bool ConsumerMain::Run(){
         }// else
     }// for 
 
-    // Send zmq message to output ip/port 
-    if(SendMessage() == false){
-        std::cerr << "ERROR::ConsumerMain::Run: Could not send output zmq message!" << std::endl;
-        return_success = false;
-    }// 
+    std::cout << "Sending Message now..." << std::endl;
+
+    // Send zmq message to output ip/port
+    if(return_success == true)
+    {
+        if(SendMessage() == false){
+            std::cerr << "ERROR::ConsumerMain::Run: Could not send output zmq message!" << std::endl;
+            return_success = false;
+        }// 
+    } // if
 
     return return_success;
 }// Run
@@ -84,7 +98,6 @@ bool ConsumerMain::SendMessage(){
 }// SendMessage
 
 int main(int argc, char *argv[]) {
-    
     std::cout << "Reached Consumer main!" << std::endl;
     ConsumerMain consumerMain;
 

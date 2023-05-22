@@ -68,10 +68,17 @@ bool ProcessorMain::Run(){
                 // Iterate through module list
                 for(const std::string& moduleName : mModuleList){
                     if(moduleName == ExampleProcessorModule::MODULE_NAME){
-                        if(mExampleProcessorModule.Run(mImageDataMessage) == false){
-                            std::cerr << "ERROR::ProcessorMain::Run: Could not run image consumer module run function!" << std::endl;
+                        if(mExampleProcessorModule.Initialize() == false){
+                            std::cerr << "ERROR::ProcessorMain::Run: Could not initialize image consumer module run function!" << std::endl;
                             return_success = false;
                         }// if
+                        else
+                        {
+                            if(mExampleProcessorModule.Run(mImageDataMessage) == false){
+                                std::cerr << "ERROR::ProcessorMain::Run: Could not run image consumer module run function!" << std::endl;
+                                return_success = false;
+                            }// if
+                        }// else   
                     }// if
                     else{
                         std::cerr << "ERROR::ProcessorMain::Run: Module name not found for any modules! Maybe we need to add it?" << std::endl;

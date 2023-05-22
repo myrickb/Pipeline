@@ -5,6 +5,7 @@
 #include<vector>
 #include<zmq.hpp>
 #include<csignal>
+#include <filesystem>
 #include "DataMessage.pb.h"
 #include "ImageConsumerModule.hpp"
 

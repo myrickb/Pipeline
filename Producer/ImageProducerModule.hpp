@@ -2,6 +2,7 @@
 #define IMAGEPRODUCERMODULE_HPP
 
 #include "DataMessage.pb.h"
+#include <opencv2/opencv.hpp>
 class ImageProducerModule{
     public:
         bool Initialize();
