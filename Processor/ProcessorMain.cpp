@@ -45,8 +45,6 @@ bool ProcessorMain::Initialize() {
 bool ProcessorMain::Run(){
     bool return_success = true;
 
-    std::cout << "reached processor main" << std::endl;
-
     std::signal(SIGINT, SignalHandler);
 
     while(gSignalInterrupt == false){
@@ -119,6 +117,8 @@ bool ProcessorMain::ReceiveMessage(std::string& receivedMessage){
         return_success = false;
     }
 
+
+    std::cout << "After receive message" << std::endl;
     return return_success;
 }// ReceiveMessage
 
@@ -150,6 +150,18 @@ bool ProcessorMain::SendMessage(){
 int main(int argc, char *argv[]) {
     
     std::cout << "Reached Processor main!" << std::endl;
+
+    ProcessorMain processor_main;
+    if(processor_main.Initialize() == false){
+        std::cerr << "ERROR::ProcessorMain::main: Could not initialize producer main!" << std::endl;
+        return 1;
+    }// if
+    else{
+        if(processor_main.Run() == false){
+            std::cerr << "ERROR::ProcessorMain::main: Could not run producer main!" << std::endl;
+            return 1;
+        }// if
+    }// else
 
     return 0;
 }
