@@ -8,4 +8,12 @@ message ImageDataMessage {
     int32 width = 1;
     int32 height = 2;
     bytes data = 3;
+    repeated BoundingBox boundingBoxes = 4;
+}
+
+message BoundingBox {
+    int32 x = 1;
+    int32 y = 2;
+    int32 width = 3;
+    int32 height = 4;
 }

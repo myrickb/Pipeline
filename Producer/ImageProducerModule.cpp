@@ -34,8 +34,22 @@ bool ImageProducerModule::Run(DataMessage::ImageDataMessage& imageDataMessage){
             }// if
             else
             {
-                std::cout << "About to save off image..." << std::endl;
                 std::memcpy(output_image.data, imageDataMessage.data().data(), imageDataMessage.data().size());
+
+                // Once we have our output image, draw any existing bounding boxes
+                std::vector<cv::Rect> bounding_boxes;
+                for(const auto& boundingBox : imageDataMessage.boundingboxes())
+                {
+                    bounding_boxes.push_back(cv::Rect(boundingBox.x(), boundingBox.y(),
+                                                      boundingBox.width(), boundingBox.height()));
+                }// for 
+
+                for(const auto& box : bounding_boxes)
+                {
+                    cv::rectangle(output_image, box, cv::Scalar(0,255,0), 2); // Green box color
+                }
+
+                std::cout << "About to save off image..." << std::endl;
                 if(cv::imwrite("outputImage.jpg", output_image) == false)
                 {
                     std::cerr << "ERROR::ImageProducerModule::Run: Could not save off output image!" << std::endl;

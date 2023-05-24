@@ -5,6 +5,7 @@
 #include<vector>
 #include<zmq.hpp>
 #include "DataMessage.pb.h"
+#include <opencv2/opencv.hpp>
 class ExampleProcessorModule{
     public:
         ExampleProcessorModule();
