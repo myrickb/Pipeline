@@ -13,6 +13,8 @@ pkg_check_modules(ZMQ REQUIRED libzmq)
 include_directories(${ZMQ_INCLUDE_DIRS})
 include_directories(${OpenCV_INCLUDE_DIRS})
 
+set(ZMQ_LIBRARY ${ZMQ_LIBRARIES})
+
 add_subdirectory(3rdParty)
 add_subdirectory(Proto)
 
