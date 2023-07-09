@@ -12,6 +12,49 @@ install_debian() {
     sudo cmake --build build --target install
     cd ..
     rm -rf tomlplusplus
+
+    # Install darknet from source
+    git clone https://github.com/AlexeyAB/darknet
+    cd darknet
+    make
+    sudo cp darknet /usr/local/bin
+    sudo chmod +x /usr/local/bin/darknet
+    cd ..
+    rm -rf darknet
+
+    # Install Cuda from source (ONLY IF GPU PRESENT)
+    # Check if NVIDIA GPU is present
+    if lspci | grep -i nvidia; then
+        # Check if NVIDIA driver is installed
+        if nvidia-smi &> /dev/null; then
+            # Add GPG Key for Ubuntu
+	    sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
+
+	    # Add Cuda toolkit repo (doesn't live in Ubuntu main repo)
+	    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+	    sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+	    sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
+
+	    # Update and install cuda using new cuda repo
+	    sudo apt-get update
+	    sudo apt install cuda
+
+	    # Move path to bashrc and source 
+	    echo 'export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}' >> ~/.bashrc
+	    source ~/.bashrc
+
+	    # Check and print cuda version
+	    echo 'Installed CUDA!'
+	    echo '----------------------'
+	    echo 'nvcc --version'
+        else
+            echo "NVIDIA driver not found! Skipping CUDA installation..."
+        fi
+    else
+        echo "NVIDIA driver/GPU not found! Skipping CUDA installation..."
+    fi
+    
+     
 }
 
 # Function to install packages on Red Hat-based systems
@@ -26,6 +69,17 @@ install_redhat() {
     sudo cmake --build build --target install
     cd ..
     rm -rf toml11
+
+    # Install darknet from source
+    git clone https://github.com/AlexeyAB/darknet 
+    cd darknet
+    make
+    sudo cp darknet /usr/local/bin
+    sudo chmod +x /usr/local/bin/darknet
+    cd ..
+    rm -rf darknet 
+
+    # Install Cuda from source (TODO) 
 }
 
 # Function to check if packages are installed
