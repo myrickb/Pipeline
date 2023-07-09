@@ -12,7 +12,7 @@ class ExampleProcessorModule{
         bool Initialize();
         bool Run(DataMessage::ImageDataMessage& imageDataMessage);
 
-        static constexpr const char* MODULE_NAME ="ImageConsumer";
+        static constexpr const char* MODULE_NAME ="ExampleProcessor";
         
 };
 

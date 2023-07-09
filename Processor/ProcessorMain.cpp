@@ -21,6 +21,8 @@ bool ProcessorMain::Initialize() {
     mOutputAddress = "127.0.0.1";
     mOutputPort = "5556";
 
+    mModuleList.push_back("ExampleProcessor");
+
     try{
         mZmqContextInput = zmq::context_t(1);
         mInputSocket = zmq::socket_t(mZmqContextInput, zmq::socket_type::pull);

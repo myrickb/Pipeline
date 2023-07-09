@@ -19,6 +19,7 @@ bool ProducerMain::Initialize() {
     mInputAddress = "127.0.0.1";
     mInputPort = "5556";
 
+    mModuleList.push_back("DrawBoxes");
     mModuleList.push_back("ImageProducer");
     
     try{
@@ -69,6 +70,19 @@ bool ProducerMain::Run(){
                             }// if
                         }// else    
                     }// if
+		    else if(moduleName == DrawBoxesModule::MODULE_NAME){
+                        if(mDrawBoxesModule.Initialize() == false){
+                            std::cerr << "ERROR::ProducerMain::Run: Could not initialize draw boxes module run function!" << std::endl;
+                            return_success = false;
+                        }// if
+                        else
+                        {
+                            if(mDrawBoxesModule.Run(mImageDataMessage) == false){
+                                std::cerr << "ERROR::ProducerMain::Run: Could not run draw boxes module run function!" << std::endl;
+                                return_success = false;
+                            }// if
+                        }// else 
+	            }// else if  
                     else{
                         std::cerr << "ERROR::ProducerMain::Run: Module name not found for any modules! Maybe we need to add it?" << std::endl;
                         return_success = false;

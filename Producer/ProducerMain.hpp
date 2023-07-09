@@ -6,6 +6,7 @@
 #include <csignal>
 #include "DataMessage.pb.h"
 #include "ImageProducerModule.hpp"
+#include "DrawBoxesModule.hpp"
 
 class ProducerMain{
     public:
@@ -22,6 +23,7 @@ class ProducerMain{
         zmq::socket_t mInputSocket;
 
         ImageProducerModule mImageProducerModule;
+	DrawBoxesModule mDrawBoxesModule;
 };
 
 #endif // PRODUCERMAIN_HPP
