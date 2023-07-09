@@ -23,38 +23,53 @@ install_debian() {
     rm -rf darknet
 
     # Install Cuda from source (ONLY IF GPU PRESENT)
-    # Check if NVIDIA GPU is present
-    if lspci | grep -i nvidia; then
-        # Check if NVIDIA driver is installed
-        if nvidia-smi &> /dev/null; then
-            # Add GPG Key for Ubuntu
-	    sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
-
-	    # Add Cuda toolkit repo (doesn't live in Ubuntu main repo)
-	    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
-	    sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
-	    sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
-
-	    # Update and install cuda using new cuda repo
-	    sudo apt-get update
-	    sudo apt install cuda
-
-	    # Move path to bashrc and source 
-	    echo 'export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}' >> ~/.bashrc
-	    source ~/.bashrc
-
-	    # Check and print cuda version
-	    echo 'Installed CUDA!'
-	    echo '----------------------'
-	    echo 'nvcc --version'
-        else
-            echo "NVIDIA driver not found! Skipping CUDA installation..."
-        fi
+    if command -v nvcc &> /dev/null; then
+        echo "CUDA already installed!"
     else
-        echo "NVIDIA driver/GPU not found! Skipping CUDA installation..."
+        # Check if NVIDIA GPU is present
+        if lspci | grep -i nvidia; then
+            # Check if NVIDIA driver is installed
+            if nvidia-smi &> /dev/null; then
+                # Add GPG Key for Ubuntu
+                sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
+
+                # Add Cuda toolkit repo (doesn't live in Ubuntu main repo)
+                wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+                sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+                sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
+
+                # Update and install cuda using new cuda repo
+                sudo apt-get update
+                sudo apt install cuda
+
+                # Move path to bashrc and source 
+                echo 'export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}' >> ~/.bashrc
+                source ~/.bashrc
+
+                # Check and print cuda version
+                echo 'Installed CUDA!'
+                echo '----------------------'
+                echo 'nvcc --version'
+            else
+                echo "NVIDIA driver not found! Skipping CUDA installation..."
+            fi
+        else
+            echo "NVIDIA driver/GPU not found! Skipping CUDA installation..."
+        fi
+
     fi
     
-     
+    # Ask if user wants to install darknet weights
+    echo "Would you like to wget yolov4 model?"
+    read -p "Enter 'yes' or 'no': " answer
+
+    if [[ $answer == "yes" ]] || [[ $answer == "y" ]]; then
+         wget https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.weights
+	 wget https://raw.githubusercontent.com/AlexeyAB/darknet/master/cfg/yolov4.cfg
+
+	 mkdir ../Models && cp yolov4.* ../Models
+	 rm yolov4.*
+    fi    
 }
 
 # Function to install packages on Red Hat-based systems
