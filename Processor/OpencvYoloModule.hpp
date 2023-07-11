@@ -12,7 +12,7 @@ class OpencvYoloModule{
         bool Initialize();
         bool Run(DataMessage::ImageDataMessage& imageDataMessage);
 
-        static constexpr const char* MODULE_NAME ="ExampleProcessor";
+        static constexpr const char* MODULE_NAME ="OpencvYolo";
         
 };
 
