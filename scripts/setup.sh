@@ -67,9 +67,22 @@ install_debian() {
          wget https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.weights
 	 wget https://raw.githubusercontent.com/AlexeyAB/darknet/master/cfg/yolov4.cfg
 
-	 mkdir ../Models && cp yolov4.* ../Models
+	 mkdir -p ../Models && cp yolov4.* ../Models
 	 rm yolov4.*
     fi    
+    
+    # Ask if user wants to install pre-trained car model (trained on COCO dataset)
+    echo "Would you like to get pre-trained car model (yolov3)?"
+    read -p "Enter 'yes' or 'no': " answer
+
+    if [[ $answer == "yes" ]] || [[ $answer == "y" ]]; then
+         wget https://pjreddie.com/media/files/yolov3.weights
+	 wget https://github.com/pjreddie/darknet/blob/master/cfg/yolov3.cfg
+
+         mkdir -p ../Models && cp yolov3.* ../Models
+         rm yolov3.*
+    fi
+
 }
 
 # Function to install packages on Red Hat-based systems
